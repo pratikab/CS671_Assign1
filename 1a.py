@@ -10,5 +10,11 @@ def my_replace(match):
 out_file = open('output.txt', 'w')
 in_file = open('test.txt', 'r')
 data = in_file.read()
-out_data = re.sub(r'\W\'(.|\s)*?\'\s', my_replace, data)
+data2 = data.split('\n\n')
+regex = r'\s\'([^\']|(\w\')|(\s\'(.|\s)*?\'(\s|;)))*?[?.!,-]\'\s'
+out_data = ''
+for i in range(len(data2)):
+	feed = '\n'+data2[i]+'\n'
+	replacement = re.sub(regex , my_replace, feed)
+	out_data += replacement[1:]+'\n'
 out_file.write("%s\n" % out_data)
